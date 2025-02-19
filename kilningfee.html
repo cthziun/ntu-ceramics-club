@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>窯燒費計算機 Kilning Fee Calculator</title>
+    <style>
+        body {
+            font-family: Century Gothic, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            font-family: inherit;
+            margin: 10px;
+            padding: 8px;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="banner.png" alt="Pottery shapes" style="width:300px; height:auto;">
+        <h2>
+            窯燒費計算機
+            <br>
+            <span style="font-size: 0.8em">
+              Kilning Fee Calculator
+            </span>
+          </h2>          
+        <table style="margin: 0 auto;">
+            <tr>
+                <td><label for="length">長 Length (cm):</label></td>
+                <td><input type="number" id="length" required></td>
+            </tr>
+            <tr>
+                <td><label for="width">寬 Width (cm):</label></td>
+                <td><input type="number" id="width" required></td>
+            </tr>
+            <tr>
+                <td><label for="height">高 Height (cm):</label></td>
+                <td><input type="number" id="height" required></td>
+            </tr>
+        </table>
+        <button onclick="calculateFee()">計算 Calculate</button>
+        <h3 id="result"></h3>
+    </div>
+    
+
+    <script>
+        function calculateFee() {
+            let length = parseFloat(document.getElementById('length').value);
+            let width = parseFloat(document.getElementById('width').value);
+            let height = parseFloat(document.getElementById('height').value);
+
+            if (isNaN(length) || isNaN(width) || isNaN(height)) {
+                document.getElementById('result').innerText = "請輸入正確尺寸\nPlease enter valid dimensions.";
+                return;
+            }
+
+            let volume = length * width * height;
+            let fee;
+            
+            if (volume >= 20 * 20 * 20) {
+                fee = 0.25 * volume;
+            } else if (volume > 8 * 8 * 8) {
+                fee = 0.3 * volume;
+            } else {
+                fee = 150;
+            }
+            
+            document.getElementById('result').innerText = "窯燒費 Kilning Fee: $" + Math.round(fee) + " NTD";
+        }
+    </script>
+</body>
+</html>
